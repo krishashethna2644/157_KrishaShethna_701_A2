@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Employee Profile</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <h1>Employee Portal</h1>
+    <div class="nav-links">
+      <a href="/employees/profile" class="active">Profile</a>
+      <a href="/leaves/apply">Apply Leave</a>
+      <a href="/leaves/list">Leave History</a>
+      <a href="/logout">Logout</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2>Employee Profile</h2>
+    <div class="profile-card">
+      <div class="profile-info">
+        <p><strong>Employee ID:</strong> <%= employee.empId %></p>
+        <p><strong>Name:</strong> <%= employee.name %></p>
+        <p><strong>Email:</strong> <%= employee.email %></p>
+        <p><strong>Department:</strong> <%= employee.department %></p>
+        <p><strong>Position:</strong> <%= employee.position %></p>
+        <p><strong>Basic Salary:</strong> ₹<%= employee.basicSalary.toLocaleString() %></p>
+        <p><strong>HRA:</strong> ₹<%= employee.hra.toLocaleString() %></p>
+        <p><strong>DA:</strong> ₹<%= employee.da.toLocaleString() %></p>
+        <p><strong>Total Salary:</strong> ₹<%= employee.totalSalary.toLocaleString() %></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

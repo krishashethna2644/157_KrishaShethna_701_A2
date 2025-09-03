@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Apply for Leave</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <h1>Employee Portal</h1>
+    <div class="nav-links">
+      <a href="/employees/profile">Profile</a>
+      <a href="/leaves/apply" class="active">Apply Leave</a>
+      <a href="/leaves/list">Leave History</a>
+      <a href="/logout">Logout</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2>Apply for Leave</h2>
+    <div class="form-container">
+      <form id="leaveForm">
+        <label for="date">Leave Date:</label>
+        <input type="date" id="date" name="date" required />
+        
+        <label for="reason">Reason for Leave:</label>
+        <textarea id="reason" name="reason" rows="4" required></textarea>
+        
+        <button type="submit">Submit Application</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      // Set minimum date to today
+      const today = new Date().toISOString().split('T')[0];
+      $('#date').attr('min', today);
+
+      $('#leaveForm').on('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = {
+          date: $('#date').val(),
+          reason: $('#reason').val()
+        };
+
+        try {
+          const response = await fetch('/leaves/api/apply', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+          });
+
+          const result = await response.json();
+          
+          if (response.ok) {
+            alert('Leave application submitted successfully!');
+            $('#leaveForm')[0].reset();
+          } else {
+            alert('Error: ' + result.message);
+          }
+        } catch (error) {
+          alert('Error submitting leave application');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

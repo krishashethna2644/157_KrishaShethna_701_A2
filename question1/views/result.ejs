@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Data</title>
+</head>
+<body>
+  <h2>Submitted User Data</h2>
+  <table border="1" cellpadding="10">
+    <tr><th>Username</th><td><%= user.username %></td></tr>
+    <tr><th>Email</th><td><%= user.email %></td></tr>
+    <tr><th>Gender</th><td><%= user.gender %></td></tr>
+    <tr><th>Hobbies</th><td><%= Array.isArray(user.hobbies) ? user.hobbies.join(", ") : user.hobbies %></td></tr>
+    <tr>
+      <th>Profile Picture</th>
+      <td>
+        <% if (user.profilePic) { %>
+          <img src="/uploads/<%= user.profilePic %>" width="100">
+        <% } %>
+      </td>
+    </tr>
+    <tr>
+      <th>Other Pictures</th>
+      <td>
+        <% user.otherPics.forEach(pic => { %>
+          <img src="/uploads/<%= pic %>" width="100">
+        <% }) %>
+      </td>
+    </tr>
+  </table>
+
+  <br>
+  <a href="/download">Download Data</a>
+</body>
+</html>

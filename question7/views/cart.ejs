@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shopping Cart</title>
+  <style>
+    body { font-family: Arial; margin: 20px; }
+    .nav { background: #ddd; padding: 10px; margin-bottom: 20px; }
+    .nav a { color: black; text-decoration: none; margin-right: 15px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+    th { background: #e0e0e0; }
+    .total { font-size: 18px; font-weight: bold; margin: 20px 0; }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <a href="/">Home</a>
+    <a href="/cart">Cart</a>
+    <a href="/admin">Admin</a>
+  </div>
+
+  <h1>Shopping Cart</h1>
+
+  <% if (cart.length === 0) { %>
+    <p>Your cart is empty. <a href="/">Continue Shopping</a></p>
+  <% } else { %>
+    <table>
+      <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+      </tr>
+      <% cart.forEach(item => { %>
+        <tr>
+          <td><%= item.name %></td>
+          <td>₹<%= item.price %></td>
+          <td><%= item.quantity %></td>
+          <td>₹<%= (item.price * item.quantity).toFixed(2) %></td>
+        </tr>
+      <% }) %>
+    </table>
+    
+    <div class="total">
+      Total: ₹<%= total.toFixed(2) %>
+    </div>
+    
+    <button onclick="alert('Checkout functionality would be implemented here')">Checkout</button>
+  <% } %>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shopping Site</title>
+  <style>
+    body { font-family: Arial; margin: 20px; }
+    .nav { background: #ddd; padding: 10px; margin-bottom: 20px; }
+    .nav a { color: black; text-decoration: none; margin-right: 15px; }
+    .product { border: 1px solid #ccc; padding: 15px; margin: 10px 0; }
+    .category { background: #f0f0f0; padding: 10px; margin: 5px 0; }
+    .subcategory { margin-left: 20px; background: #e0e0e0; padding: 5px; margin: 2px 0; }
+    button { padding: 5px 10px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <a href="/">Home</a>
+    <a href="/cart">Cart (<%= cart.length %>)</a>
+    <a href="/admin">Admin</a>
+  </div>
+
+  <h1>Shopping Site</h1>
+
+  <h2>Categories</h2>
+  <% categories.forEach(cat => { %>
+    <div class="category">
+      <strong><%= cat.name %></strong>
+      <% subcategories.filter(sub => sub.parent && sub.parent._id.toString() === cat._id.toString()).forEach(sub => { %>
+        <div class="subcategory"><%= sub.name %></div>
+      <% }) %>
+    </div>
+  <% }) %>
+
+  <h2>Products</h2>
+  <% products.forEach(product => { %>
+    <div class="product">
+      <h3><%= product.name %></h3>
+      <p>Price: ₹<%= product.price %></p>
+      <p>Category: <%= product.category?.name || 'None' %></p>
+      <p>Stock: <%= product.stock %></p>
+      <form method="POST" action="/cart/add">
+        <input type="hidden" name="productId" value="<%= product._id %>">
+        <button type="submit">Add to Cart</button>
+      </form>
+    </div>
+  <% }) %>
+</body>
+</html>
